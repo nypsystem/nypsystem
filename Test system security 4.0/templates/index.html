@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    </head>
+    <body>
+        <div class="login">
+            <h1>Login</h1>
+            <div class="links">
+                <a href="{{ url_for('login') }}" class="active">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            </div>
+            <form action="{{ url_for('login') }}" method="post">
+                {{ form.csrf_token }}
+                <label for="username"><i class="fas fa-user"></i></label>
+                    <input type="text" name="username" placeholder="Username" id="username" required>
+                    <label for="password">|
+                    <i class="fas fa-lock"></i>
+                </label>
+                <input type="password" name="password" placeholder="Password" id="password" required>
+                    {{ form.recaptcha }}
+
+                    <div class="msg">
+                        {% if msg.errors %}
+                            <uL>
+                                {% for i in msg.errors %}
+                                <li>{{i}} :
+                                    <ul>
+                                        {% for x in msg.errors[i] %}
+                                            <li>
+                                                {{x}}
+                                            </li>
+                                        {%endfor%}
+                                    </ul>
+
+                                </li>
+                                {%endfor%}
+                            </uL>
+                        {% else %}
+                            {{msg}}
+                        {%endif%}
+                    </div>
+                <input type="submit" value="Login" id="submit" name="submit">
+            </form>
+        </div>
+    </body>
+</html>
